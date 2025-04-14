@@ -1,5 +1,9 @@
 pipeline {   
-    agent kubernetes
+    agent any
+       environment {
+        KUBECONFIG_CRED = credentials('kuber_id') // ID of the kubeconfig file
+    }
+
     tools{
         jdk 'open-jdk 17'
         maven 'maven'
@@ -46,9 +50,11 @@ pipeline {
             }
         }
         
-         stage('k8s deployment') {
+       stage('Deploy to Kubernetes') {
             steps {
-                   kubernetesDeploy(configs: "k8s-deploy.yml")
+                withEnv(["KUBECONFIG=${KUBECONFIG_CRED}"]) {
+                    sh 'kubectl apply -f k8s-deploy.yml -n jenkins'
+                }
             }
         }
          
