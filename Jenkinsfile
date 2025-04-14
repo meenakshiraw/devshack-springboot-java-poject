@@ -53,7 +53,7 @@ pipeline {
        stage('Deploy to Kubernetes') {
             steps {
                 withEnv(["KUBECONFIG=${KUBECONFIG_CRED}"]) {
-                    sh 'kubectl apply -f k8s-deploy.yml -n jenkins'
+                    sh 'kubectl apply -f k8s-deploy.yml '
                 }
             }
         }
