@@ -10,7 +10,8 @@ pipeline {
     stages {
         stage('Git checkout') {
             steps {
-               git changelog: false, poll: false, url: 'https://github.com/appneural-meenakshirawat/-springboot-java-poject.git'
+               //git changelog: false, poll: false, url: 'https://github.com/appneural-meenakshirawat/-springboot-java-poject.git'
+                git changelog: false, poll: false, url: 'git@github.com:appneural-meenakshirawat/-springboot-java-poject.git'
             }
         }
         
