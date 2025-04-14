@@ -24,11 +24,24 @@ pipeline {
                 
                  }
         }
-         stage('Docker Image') {
+           stage('Build & Tag Docker Image') {
             steps {
-                sh 'docker build -t meenakshirawat/springboot-java-poject .'
+                script {
+                    withDockerRegistry(credentialsId: 'docker-id', toolName: 'docker') {
+                        sh "docker build -t meenakshirawat/springboot-java-poject:latest ."
+                    }
+                }
             }
         }
+        
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: 'docker-id', toolName: 'docker') {
+                        sh "docker push meenakshirawat/springboot-java-poject:latest "
+                    }
+                }
+            }
         
         
          
