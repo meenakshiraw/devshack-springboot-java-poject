@@ -13,7 +13,7 @@ pipeline {
                 //when we use git public repo
                //git changelog: false, poll: false, url: 'https://github.com/appneural-meenakshirawat/-springboot-java-poject.git'
                 //when we use git private repo
-                git changelog: false, credentialsId: 'git-ssh-id', poll: false, url: 'git@github.com:appneural-meenakshirawat/-springboot-java-poject.git'
+               git changelog: false, credentialsId: 'git-ssh-id', poll: false, url: 'git@github.com:appneural-meenakshirawat/-springboot-java-poject.git'
             }
         }
         
