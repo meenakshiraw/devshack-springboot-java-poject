@@ -8,13 +8,10 @@ pipeline {
     }
 
     stages {
-        //stage('Git checkout')
-         stage('Clone'){
+        stage('Git checkout'){
             steps {
                //git changelog: false, poll: false, url: 'https://github.com/appneural-meenakshirawat/-springboot-java-poject.git'
-                 git credentialsId: 'git_id',
-                    url: 'git@github.com:appneural-meenakshirawat/-springboot-java-poject.git',
-                    branch: 'master'
+                git changelog: false, credentialsId: 'github-jenkins', poll: false, url: 'git@github.com:appneural-meenakshirawat/-springboot-java-poject.git'
             }
         }
         
