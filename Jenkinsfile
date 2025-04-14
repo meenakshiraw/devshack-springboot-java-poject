@@ -46,7 +46,7 @@ pipeline {
 
          stage('k8s deployment') {
             steps {
-                sh 'kubectl apply -f k8s-deploy.yml'
+                   kubernetesDeploy(configs: "k8s-deploy.yml", kubeconfigId: "kuber_id")
             }
         }
         
