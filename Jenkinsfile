@@ -1,5 +1,5 @@
 pipeline {   
-    agent any 
+    agent  kubernetes
     tools{
         jdk 'open-jdk-17'
         maven 'maven'
@@ -46,7 +46,11 @@ pipeline {
             }
         }
         
-        
+         stage('k8s deployment') {
+            steps {
+                   kubernetesDeploy(configs: "k8s-deploy.yml")
+            }
+        }
          
     }
 }
