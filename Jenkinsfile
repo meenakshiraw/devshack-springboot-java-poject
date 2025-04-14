@@ -1,5 +1,5 @@
 pipeline {   
-    agent  any
+    agent kubernetes
     tools{
         jdk 'open-jdk 17'
         maven 'maven'
