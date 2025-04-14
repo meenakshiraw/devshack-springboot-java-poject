@@ -17,11 +17,11 @@ spec:
      app: mavenwebapp	 
   spec: 
     containers:
-    - name: mavenwebappcontainer
-      image: ashokit/mavenwebapp
+    - name: mavenwebappkubercontainer
+      image: meenakshirawat/springboot-java-poject
       imagePullPolicy: Always
       ports:
-      - containerPort: 8080
+      - containerPort: 9090
 ---
 apiVersion: v1
 kind: Service
@@ -32,6 +32,6 @@ spec:
   selector:
    app: mavenwebapp
   ports:
-   - port: 80
-     targetPort: 8080
+   - port: 90
+     targetPort: 9090
 ...
