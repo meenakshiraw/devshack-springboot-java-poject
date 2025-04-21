@@ -1,7 +1,8 @@
 pipeline {   
     agent any
-       
-
+    environment{
+       def imageTag = "meenakshirawat/devshack-springboot-java-pojec:${env.BUILD_NUMBER}"
+    }
     tools{
         jdk 'open-jdk 17'
         maven 'maven'
@@ -35,7 +36,9 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-id', toolName: 'docker') {
-                        sh "docker build -t meenakshirawat/devshack-springboot-java-poject:latest ."
+                        sh "docker build -t  $imageTag ."
+                        
+
                     }
                 }
             }
@@ -45,7 +48,7 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-id', toolName: 'docker') {
-                        sh "docker push meenakshirawat/devshack-springboot-java-poject:latest "
+                        sh "docker push $imageTag "
                     }
                 }
             }
