@@ -13,7 +13,7 @@ pipeline {
                 //when we use git public repo
                //git changelog: false, poll: false, url: 'https://github.com/appneural-meenakshirawat/-springboot-java-poject.git'
                 //when we use git private repo
-               git changelog: false, credentialsId: 'git-ssh-id', poll: false, url: 'git@github.com:appneural-meenakshirawat/-springboot-java-poject.git'
+               git changelog: false, credentialsId: 'git-ssh-id', poll: false, url: 'git@github.com:appneural-meenakshirawat/devshack-springboot-java-poject.git'
             }
         }
         
@@ -50,10 +50,30 @@ pipeline {
                 }
             }
         }
+           stage('Build & Tag Docker Image') {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: 'docker-id', toolName: 'docker') {
+                        sh "docker build -t  meenakshirawat/devshack-springboot-java-poject ."
+                    }
+                }
+            }
+        }
+        
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: 'docker-id', toolName: 'docker') {
+                        sh "docker push  meenakshirawat/devshack-springboot-java-poject "
+                    }
+                }
+            }
+        }
         
        stage('k8s deployment') {
             steps {
-                   kubernetesDeploy(configs: "k8s-deploy.yml", kubeconfigId: "kuber_id")
+                echo " nothing"
+                  # kubernetesDeploy(configs: "k8s-deploy.yml", kubeconfigId: "kuber_id")
             }
         }
          
