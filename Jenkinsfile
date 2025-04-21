@@ -35,7 +35,7 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-id', toolName: 'docker') {
-                        sh "docker build -t meenakshirawat/springboot-java-poject:latest ."
+                        sh "docker build -t meenakshirawat/devshack-springboot-java-poject:latest ."
                     }
                 }
             }
@@ -45,7 +45,7 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-id', toolName: 'docker') {
-                        sh "docker push meenakshirawat/springboot-java-poject:latest "
+                        sh "docker push meenakshirawat/devshack-springboot-java-poject:latest "
                     }
                 }
             }
