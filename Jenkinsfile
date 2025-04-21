@@ -73,7 +73,7 @@ pipeline {
        stage('k8s deployment') {
             steps {
                 echo " nothing"
-                  # kubernetesDeploy(configs: "k8s-deploy.yml", kubeconfigId: "kuber_id")
+                  // kubernetesDeploy(configs: "k8s-deploy.yml", kubeconfigId: "kuber_id")
             }
         }
          
