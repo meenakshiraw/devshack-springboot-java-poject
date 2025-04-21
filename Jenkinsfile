@@ -38,7 +38,7 @@ pipeline {
                 script {
                     withDockerRegistry(credentialsId: 'docker-id', toolName: 'docker') {
                        // sh "docker build -t  meenakshirawat/devshack-springboot-java-pojec:${IMAGE_TAG} ."
-                         dockerImage = docker.build("meenakshirawat/devshack-springboot-java-pojec:${IMAGE_TAG}")
+                         dockerImage = docker.build("meenakshirawat/devshack-springboot-java-poject:${IMAGE_TAG}")
                         
 
                     }
@@ -50,7 +50,7 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-id', toolName: 'docker') {
-                       // sh "docker push meenakshirawat/devshack-springboot-java-pojec "
+                       // sh "docker push meenakshirawat/devshack-springboot-java-poject "
                           dockerImage.push()
                     }
                 }
