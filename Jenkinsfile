@@ -1,7 +1,8 @@
 pipeline {   
     agent any
     environment{
-       def imageTag = "meenakshirawat/devshack-springboot-java-pojec:${env.BUILD_NUMBER}"
+        GIT_COMMIT_SHORT = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
+        IMAGE_TAG = "${GIT_COMMIT_SHORT}"
     }
     tools{
         jdk 'open-jdk 17'
@@ -36,7 +37,8 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-id', toolName: 'docker') {
-                        sh "docker build -t  $imageTag ."
+                       // sh "docker build -t  meenakshirawat/devshack-springboot-java-pojec:${IMAGE_TAG} ."
+                         dockerImage = docker.build("meenakshirawat/devshack-springboot-java-pojec:${IMAGE_TAG}")
                         
 
                     }
@@ -48,12 +50,23 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-id', toolName: 'docker') {
-                        sh "docker push $imageTag "
+                       // sh "docker push meenakshirawat/devshack-springboot-java-pojec "
+                          dockerImage.push()
                     }
                 }
             }
         }
-         
+        stage('Tag as Latest (Optional)') {
+            steps {
+                script {
+                    dockerImage.push('latest')
+                }
+            }
+            when {
+                branch 'master'
+            }
+        }
+    }
         
      
        stage('k8s deployment') {
@@ -63,5 +76,13 @@ pipeline {
             }
         }
          
+    }
+   post {
+        success {
+            echo "Docker image pushed with tag: ${IMAGE_TAG}"
+        }
+        failure {
+            echo "Build or push failed."
+        }
     }
 }
