@@ -66,7 +66,7 @@ pipeline {
                 branch 'master'
             }
         }
-    }
+    
         
      
        stage('k8s deployment') {
