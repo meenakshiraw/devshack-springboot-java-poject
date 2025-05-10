@@ -28,3 +28,27 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
+
+  security-check:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: trivy installation
+      run: |
+       wget https://github.com/aquasecurity/trivy/releases/download/v0.18.3/trivy_0.18.3_Linux-64bit.deb
+       sudo dpkg -i trivy_0.18.3_Linux-64bit.deb
+       sudo apt-get update -y 
+       trivy –version
+    - name: trivy fs scan
+      run: |
+       trivy fs --format table -o fs-report.json .
+    - name: gitleaks  scan
+      run: sudo apt install gitleaks -y 
+
+    - name: gitleak code scan
+      run: gitleaks detect -r source . gitleak-report.json -f json
+
+
+
