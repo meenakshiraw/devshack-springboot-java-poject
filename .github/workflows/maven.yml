@@ -39,7 +39,7 @@ jobs:
       run: gitleaks detect -r source . gitleak-report.json -f json
 
       
-  sonarqube:
+  docker:
 
     runs-on:  self-hosted
     needs: compile 
